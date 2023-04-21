@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hr-api
+  name: hr-api
+spec:
+  selector:
+    matchLabels:
+      app: hr-api
+  template:
+    metadata:
+      labels:
+        app: hr-api
+    spec:
+      containers:
+      - name: hr-api
+        image: tiagomelo/hr-api:latest
+        imagePullPolicy: Never
+        env:
+        - name: DB_HOST
+          value: mariadb
+        - name: DB_USER
+          value: root
+        - name: DB_PASSWORD
+          value: hr123!
+        - name: DB_NAME
+          value: hr

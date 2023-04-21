@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-database-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: migrate
+        image: tiagomelo/migrations:latest
+        imagePullPolicy: IfNotPresent
+        command: ["migrate", "-path", "/migrations", "create", "-ext", "sql", "-dir", "/Users/tiagomelo/develop/go/k8s-mariadb-temporal-tables-tutorial/db/migrations", "-seq", "-digits", "4", "blablablabl"]
+      restartPolicy: Never

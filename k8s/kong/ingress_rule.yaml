@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hr-api-ingress
+spec:
+  ingressClassName: kong
+  rules:
+    - http:
+        paths:
+        - path: /v1/*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: hr-api
+              port:
+                number: 8080

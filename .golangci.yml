@@ -1,0 +1,9 @@
+linters:
+  enable:
+    - godot
+    - cyclop
+    - gomnd
+
+linters-settings:
+  cyclop:
+    max-complexity: 5

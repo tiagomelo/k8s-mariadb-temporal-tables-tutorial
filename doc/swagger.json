@@ -1,0 +1,390 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "A sample RESTful API to manage employees.",
+    "title": "Employees API",
+    "contact": {
+      "name": "Tiago Melo",
+      "email": "tiagoharris@gmail.com"
+    },
+    "version": "0.0.1"
+  },
+  "host": "localhost:3000",
+  "paths": {
+    "/v1/employee": {
+      "post": {
+        "tags": [
+          "employee"
+        ],
+        "summary": "Create an employee.",
+        "operationId": "Create",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/NewEmployee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/employee"
+          }
+        }
+      }
+    },
+    "/v1/employee/{id}": {
+      "get": {
+        "tags": [
+          "employee"
+        ],
+        "summary": "Get a current employee by its id.",
+        "operationId": "GetById",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/employee"
+          },
+          "400": {
+            "description": " invalid id"
+          },
+          "404": {
+            "description": " employee not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "employee"
+        ],
+        "summary": "Updates a current employee.",
+        "operationId": "Update",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateEmployee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/employee"
+          },
+          "400": {
+            "description": " invalid id"
+          },
+          "404": {
+            "description": " employee not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "employee"
+        ],
+        "summary": "Deletes a current employee.",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": " no content"
+          },
+          "400": {
+            "description": " invalid id"
+          }
+        }
+      }
+    },
+    "/v1/employee/{id}/history/all": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Get all historical data about an employee with a given id.",
+        "operationId": "GetAllEmployeeHistoryById",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/employeeHistory"
+          },
+          "400": {
+            "description": " invalid id"
+          }
+        }
+      }
+    },
+    "/v1/employee/{id}/history/{startTimestamp}/{endTimestamp}": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Get historical data about an employee with a given id between dates.",
+        "operationId": "GetAllEmployeeHistoryBetweenDates",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "StartTimestamp",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "EndTimestamp",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/employeeHistory"
+          },
+          "400": {
+            "description": " invalid end timestamp"
+          }
+        }
+      }
+    },
+    "/v1/employee/{id}/history/{timestamp}": {
+      "get": {
+        "tags": [
+          "history"
+        ],
+        "summary": "Get historical data about an employee with a given id at a given point in time.",
+        "operationId": "GetAllEmployeeHistoryAtPointInTime",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "Timestamp",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/employeeHistory"
+          },
+          "400": {
+            "description": " invalid timestamp"
+          }
+        }
+      }
+    },
+    "/v1/employees": {
+      "get": {
+        "tags": [
+          "employees"
+        ],
+        "summary": "Get all current employees.",
+        "operationId": "GetAll",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getAllCurrentEmployeesResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Employee": {
+      "type": "object",
+      "title": "Employee represents an employee record in the database.",
+      "properties": {
+        "department": {
+          "type": "string",
+          "x-go-name": "Department"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Id"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "salary": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Salary"
+        }
+      },
+      "x-go-package": "github.com/tiagomelo/k8s-mariadb-temporal-tables-tutorial/db/employees/models"
+    },
+    "EmployeeHistory": {
+      "type": "object",
+      "title": "EmployeeHistory represents an employee history record in the database.",
+      "properties": {
+        "department": {
+          "type": "string",
+          "x-go-name": "Department"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Id"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "row_end": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "RowEnd"
+        },
+        "row_start": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "RowStart"
+        },
+        "salary": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Salary"
+        }
+      },
+      "x-go-package": "github.com/tiagomelo/k8s-mariadb-temporal-tables-tutorial/db/employees/models"
+    },
+    "NewEmployee": {
+      "type": "object",
+      "title": "NewEmployee is used to create a new employee record.",
+      "properties": {
+        "department": {
+          "type": "string",
+          "x-go-name": "Department"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "salary": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Salary"
+        }
+      },
+      "x-go-package": "github.com/tiagomelo/k8s-mariadb-temporal-tables-tutorial/db/employees/models"
+    },
+    "UpdateEmployee": {
+      "type": "object",
+      "title": "UpdateEmployee is used to update an employee record.",
+      "properties": {
+        "department": {
+          "type": "string",
+          "x-go-name": "Department"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "salary": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Salary"
+        }
+      },
+      "x-go-package": "github.com/tiagomelo/k8s-mariadb-temporal-tables-tutorial/db/employees/models"
+    }
+  },
+  "responses": {
+    "employee": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/Employee"
+      }
+    },
+    "employeeHistory": {
+      "description": "",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/EmployeeHistory"
+        }
+      }
+    },
+    "getAllCurrentEmployeesResponse": {
+      "description": "",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Employee"
+        }
+      }
+    }
+  }
+}

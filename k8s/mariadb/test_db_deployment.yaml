@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-test
+spec:
+  selector:
+    matchLabels:
+      app: mariadb-test
+  template:
+    metadata:
+      labels:
+        app: mariadb-test
+    spec:
+      containers:
+      - name: mariadb-test
+        image: mariadb:latest
+        env:
+        - name: MARIADB_USER
+          value: hr
+        - name: MARIADB_PASSWORD
+          value: hr123!
+        - name: MARIADB_ROOT_PASSWORD
+          value: randompass
+        - name: MARIADB_DATABASE
+          value: hr
+        ports:
+        - containerPort: 3307
+        volumeMounts:
+        - name: mariadb-test-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-test-persistent-storage
+        emptyDir: {}

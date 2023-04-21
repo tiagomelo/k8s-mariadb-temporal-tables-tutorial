@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-test
+spec:
+  selector:
+    app: mariadb-test
+  ports:
+  - name: mysql
+    port: 3307
+    targetPort: 3307

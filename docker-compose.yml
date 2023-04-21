@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  mariadb_test:
+    platform: linux/x86_64
+    image: mariadb
+    container_name: temporal-tables-mariadb-test
+    networks:
+      new:
+        aliases:
+          - databasetest
+    restart: always
+    env_file:
+      - .env_test
+    ports:
+      - "3311:3306"
+    expose:
+      - "3311"
+    volumes:
+      - data_test:/var/lib/mysql_test
+  migrate_test:
+    image: migrate/migrate
+    container_name: mariadb_migrate_test
+    env_file:
+      - .env_test
+    networks:
+      - new
+    volumes:
+      - ./db/migrations:/migrations
+    command: ["-path", "/migrations", "-database",  "mysql://hr:hr123!@tcp(databasetest:3306)/hr?multiStatements=true", "up"]
+    links: 
+      - mariadb_test
+    depends_on:
+      - mariadb_test
+    restart: on-failure
+  swagger-ui:
+   image: swaggerapi/swagger-ui
+   container_name: swagger_ui_container
+   ports:
+      - "80:8080"
+   volumes:
+      - ./doc:/usr/share/nginx/html/doc
+   environment:
+      API_URL: doc/swagger.json
+
+volumes:
+  data_test:
+networks:
+  new:
+    driver: bridge  

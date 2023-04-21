@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "c771fbf0-8561-4c72-aa10-922c78c51718",
+		"name": "MariaDB temporal table tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4667108"
+	},
+	"item": [
+		{
+			"name": "GET employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/employees",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET employee by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET employee all history by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee/{{id}}/history/all",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee",
+						"{{id}}",
+						"history",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET employee history at point in time by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee/{{id}}/history/{{timestamp}}",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee",
+						"{{id}}",
+						"history",
+						"{{timestamp}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET employee history between dates by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee/{{id}}/history/{{start_timestamp}}/{{end_timestamp}}",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee",
+						"{{id}}",
+						"history",
+						"{{start_timestamp}}",
+						"{{end_timestamp}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE employee by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"salary\": 1234.56,\n    \"department\": \"IT\",\n    \"email\": \"tiagoharris@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST employee missing required fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT employee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"salary\": 2500\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{api_host}}/v1/employee/{{id}}",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"employee",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET timestamp/advance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/db/timestamp/advance",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"db",
+						"timestamp",
+						"advance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET timestamp/default",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{api_host}}/v1/db/timestamp/default",
+					"protocol": "http",
+					"host": [
+						"{{api_host}}"
+					],
+					"path": [
+						"v1",
+						"db",
+						"timestamp",
+						"default"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

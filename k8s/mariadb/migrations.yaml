@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: database-migrations
+spec:
+  ttlSecondsAfterFinished: 0
+  template:
+    spec:
+      containers:
+      - name: migrate
+        image: tiagomelo/migrations:latest
+        imagePullPolicy: IfNotPresent
+        command: ["migrate", "-path=/migrations", "-database=mysql://hr:hr123!@tcp(mariadb:3306)/hr?multiStatements=true", "up"]
+      restartPolicy: Never
