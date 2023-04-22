@@ -166,8 +166,6 @@ kong:
 cleanup:
 	@ kubectl delete deployment mariadb
 	@ kubectl delete service mariadb
-	@ kubectl delete deployment mariadb-test
-	@ kubectl delete service mariadb-test
 	@ kubectl delete deployment hr-api
 	@ kubectl delete service hr-api
 	@ kubectl delete ingress hr-api-ingress
@@ -239,4 +237,4 @@ swagger-ui: swagger
 
 .PHONY: run
 ## run: does all needed setup and runs the api
-run: minikube-setup deploy-api deploy-db migrate-db apply-ingress-rule
+run: minikube-setup deploy-db migrate-db deploy-api apply-ingress-rule
