@@ -96,6 +96,11 @@ minikube-setup:
 	docker build --no-cache -t $(MIGRATIONS_TAG) -f k8s/mariadb/Dockerfile . ; \
 	docker build --no-cache -t $(API_TAG) -f k8s/api/Dockerfile .
 
+.PHONY: minikube-dashboard
+## minikube-dashboard: shows a web-based Kubernetes GUI
+minikube-dashboard:
+	@ minikube dashboard
+
 # ==============================================================================
 # Deployment
 

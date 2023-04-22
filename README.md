@@ -52,6 +52,12 @@ make swagger
 
 Then head to `localhost`.
 
+## Kubernetes dashboard
+
+```
+make minikube-dashboard
+```
+
 ## references
 - [go-swagger](https://github.com/go-swagger/go-swagger)
 - [MariaDB](https://mariadb.org/)
